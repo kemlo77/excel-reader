@@ -14,6 +14,11 @@ public class ExcelReader {
     hamtaRader();
   }
 
+  static String[][] testVarden() {
+    String[][] testData = {{"a","b"},{"c","d"}};
+    return testData;
+  }
+
   public static void hamtaRader(){
     try(Workbook excelFil = WorkbookFactory.create(
         new File("./src/test/resources/excel-filer/testdata1.xlsx"),null,true)) {
