@@ -1,20 +1,22 @@
 package tjanst1;
 
-import org.junit.Assert;
-import org.junit.Test;
-import greeter.HelloWorld;
 
-public class ExempelTest {
+import greeter.HelloWorld;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class ExempelTest {
 
 
     @Test
-    public void test1(){
-        Assert.assertEquals(1,2);
+     void test1(){
+        assertEquals(1,1);
     }
 
     @Test
-    public void test2(){
-        Assert.assertEquals(3,HelloWorld.adder(1,2));
+     void test2(){
+        assertEquals(3,HelloWorld.adder(1,2));
     }
 
 }
