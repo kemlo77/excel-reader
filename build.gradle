@@ -14,6 +14,8 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
+    //compile "org.apache.poi:poi:4.0.0"          // For `.xls` files
+    compile "org.apache.poi:poi-ooxml:4.0.0"    // For `.xlsx` files
 }
 
 test {
