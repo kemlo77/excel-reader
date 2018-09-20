@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,35 +12,54 @@ public class ExcelReader {
 
 
   public static void main(String[] args) {
-    hamtaRader();
+    getTestDataFromExcelFile("./src/test/resources/excel-filer/testdata2.xlsx",
+        "Sheet1");
   }
 
-  static String[][] testVarden() {
-    String[][] testData = {{"a","b"},{"c","d"}};
-    return testData;
+  /**
+   * A method that returns test data intended to be uses in parameterized test.
+   * @return a 2d-array containing test data.
+   */
+  static String[][] testValues() {
+    return getTestDataFromExcelFile("./src/test/resources/excel-filer/testdata2.xlsx",
+        "Sheet1");
   }
 
-  public static void hamtaRader(){
-    try(Workbook excelFil = WorkbookFactory.create(
-        new File("./src/test/resources/excel-filer/testdata1.xlsx"),null,true)) {
 
-      System.out.println("Excelfilen har " + excelFil.getNumberOfSheets() + " blad");
+  /**
+   * Method that searches through a given sheet in an Excel-file and returns the data
+   * @param excelFullPath full path to excel-file including file name.
+   * @param sheetName the name of the sheet where to extract data.
+   * @return String[][] containing the data
+   */
+  public static String[][] getTestDataFromExcelFile(String excelFullPath, String sheetName){
+    DataFormatter myDataFormatter = new DataFormatter();
 
-      Sheet excelBlad1 = excelFil.getSheet("Blad1");
-      int forstaRaden = excelBlad1.getFirstRowNum();
-      int sistaRaden = excelBlad1.getLastRowNum();
+    try(Workbook excelFile = WorkbookFactory.create(
+        new File(excelFullPath),null,true)) {
 
-      for (int i = forstaRaden+1; i <= sistaRaden; i++) {
-        Row rad = excelBlad1.getRow(i);
-        for (int j = rad.getFirstCellNum(); j < rad.getLastCellNum(); j++) {
-          System.out.print(rad.getCell(j));
-          System.out.print("\t");
+      Sheet excelSheet1 = excelFile.getSheet(sheetName);
+      int firstRow = excelSheet1.getFirstRowNum();
+      int lastRow = excelSheet1.getLastRowNum();
+      String[][] testData2dArray = new String[lastRow][];
+
+      //skipping the title row in the sheet
+      for (int i = firstRow+1; i <= lastRow; i++) {
+        Row row = excelSheet1.getRow(i);
+        int firstCellNum = row.getFirstCellNum();
+        int lastCellNum = row.getLastCellNum();
+        String[] testDataArray = new String[lastCellNum];
+
+        for (int j = firstCellNum; j < lastCellNum; j++) {
+          testDataArray[j]=myDataFormatter.formatCellValue(row.getCell(j));
         }
-        System.out.println("");
+        testData2dArray[i-1]=testDataArray;
       }
+      return testData2dArray;
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return null;
   }
 
 

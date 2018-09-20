@@ -1,5 +1,7 @@
 # excel-reader
-Ett exempel på ett JUNIT5-test som använder @MethodSource och får data från en Excel-fil.
+A simple example of test in JUnit5 using @MethodSource to supply with testdata from an Excel-file.
 
-##användbara länkar
-https://poi.apache.org/apidocs/index.html
+
+##Useful links
+- [Apache POI API Documentation](https://poi.apache.org/apidocs/index.html)
+- [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)
