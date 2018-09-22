@@ -23,14 +23,29 @@ class ExampleTest {
 
   /**
    * A simple JUnit 5 @ParameterizedTest case using @MethodSource to provide test data.
+   * The testdata from this @MethodSource comes as a Stream of Arguments
    * @param person test data used in test
    * @param age test data used in test
    * @param shoeSize test data used in test
    */
   @ParameterizedTest
-  @MethodSource("utils.ExcelReader#testValues")
+  @MethodSource("utils.ExcelReader#testValues1")
   void test3(String person, int age, float shoeSize){
     System.out.println(person + " " + age +" "+ shoeSize);
   }
+
+  /**
+   * A simple JUnit 5 @ParameterizedTest case using @MethodSource to provide test data.
+   * The testdata from this @MethodSource comes as a String[][]
+   * @param person test data used in test
+   * @param age test data used in test
+   * @param shoeSize test data used in test
+   */
+  @ParameterizedTest
+  @MethodSource("utils.ExcelReader#testValues2")
+  void test4(String person, int age, float shoeSize){
+    System.out.println(person + " " + age +" "+ shoeSize);
+  }
+
 
 }
